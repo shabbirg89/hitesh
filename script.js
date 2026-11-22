@@ -4,33 +4,31 @@
    or shows "to be announced".
    ════════════════════════════════════════════════════════════ */
 const CONFIG = {
-  // Wedding (phera) date & time, local IST. Example: '2027-02-14T19:15:00+05:30'
-  weddingDate: null,
-  muhurat: '',                 // e.g. 'Phera Muhurat 7:15 p.m. · Godhuli Lagna'
+  // Phera date & time, IST
+  weddingDate: '2027-01-27T22:00:00+05:30',
+  muhurat: 'Phere 10:00 p.m. onwards',
 
-  venueName: '',               // e.g. 'Shri Rajpurohit Samaj Bhawan'
-  venueAddress: '',            // multi-line OK: 'Line 1\nCity, Rajasthan 342001'
-  mapQuery: '',                // place name or 'lat,lng' for the map embed
+  venueName: 'Botiyon ka Bas, Kherwa',
+  venueAddress: 'Kherwa, Pali\nRajasthan',
+  mapQuery: 'Botiyon ka bas, Kherwa, Pali, Rajasthan',          // used for the embedded map
+  mapLink: 'https://maps.app.goo.gl/uLQ2JEhzBJKKmwVP9?g_st=aw', // exact pin for "View Location"
 
-  whatsappNumber: '',          // digits with country code, e.g. '919876543210'
-  phoneDisplay: '',            // e.g. '+91 98765 43210'
+  whatsappNumber: '918806595177',
+  phoneDisplay: '+91 88065 95177',
 
-  // Ceremonies — set `when` once dates are final.
   events: [
-    { hi: 'गणेश स्थापना', name: 'Ganesh Sthapana', icon: 'i-ganesh', accent: '#E0701A',
-      desc: 'Invoking Vighnaharta’s blessings to begin the celebrations.', when: '' },
-    { hi: 'मायरा', name: 'Mayra (Bhaat)', icon: 'i-pot', accent: '#C2185B',
-      desc: 'The maternal family arrives bearing gifts and blessings.', when: '' },
-    { hi: 'पीठी · हल्दी', name: 'Pithi & Haldi', icon: 'i-haldi', accent: '#E3A112',
-      desc: 'Turmeric, laughter and songs of the women of the house.', when: '' },
-    { hi: 'मेहंदी · महिला संगीत', name: 'Mehendi & Sangeet', icon: 'i-hand', accent: '#2F7D4A',
-      desc: 'Henna, ghoomar and folk songs late into the night.', when: '' },
-    { hi: 'निकासी · तोरण', name: 'Nikasi & Toran', icon: 'i-horse', accent: '#7A1020',
-      desc: 'The baraat sets out and the groom strikes the toran.', when: '' },
-    { hi: 'पाणिग्रहण · फेरे', name: 'Phere', icon: 'i-fire', accent: '#B0164E',
-      desc: 'Seven sacred rounds around the holy fire.', when: '' },
-    { hi: 'प्रीतिभोज', name: 'Preetibhoj', icon: 'i-thali', accent: '#0F6B66',
-      desc: 'A traditional Rajasthani feast with family and friends.', when: '' },
+    { hi: 'पीठी · हल्दी', name: 'Haldi', icon: 'i-haldi', accent: '#E3A112',
+      desc: 'Turmeric, laughter and songs of the women of the house.',
+      when: 'Tue, 26 Jan 2027 · 10:00 a.m. onwards' },
+    { hi: 'महिला संगीत', name: 'Sangeet', icon: 'i-hand', accent: '#C2185B',
+      desc: 'Ghoomar, folk songs and dancing late into the night.',
+      when: 'Tue, 26 Jan 2027 · 8:00 p.m. onwards' },
+    { hi: 'बारात प्रस्थान', name: 'Baraat Prasthan', icon: 'i-horse', accent: '#7A1020',
+      desc: 'The baraat sets out with dhol, safas and the groom on his ghodi.',
+      when: 'Wed, 27 Jan 2027 · 4:00 p.m.' },
+    { hi: 'पाणिग्रहण · फेरे', name: 'Phere', icon: 'i-fire', accent: '#0F6B66',
+      desc: 'Seven sacred rounds around the holy fire.',
+      when: 'Wed, 27 Jan 2027 · 10:00 p.m. onwards' },
   ],
 };
 
@@ -60,7 +58,7 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
   const q = CONFIG.mapQuery;
   if (!q) return;
   const enc = encodeURIComponent(q);
-  $('#mapLink').href = `https://www.google.com/maps/search/?api=1&query=${enc}`;
+  $('#mapLink').href = CONFIG.mapLink || `https://www.google.com/maps/search/?api=1&query=${enc}`;
   $('#dirLink').href = `https://www.google.com/maps/dir/?api=1&destination=${enc}`;
   $('#venueActions').hidden = false;
   const box = $('#mapBox');
