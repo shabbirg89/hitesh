@@ -16,6 +16,13 @@ const CONFIG = {
   mapQuery: 'Botiyon ka bas, Kherwa, Pali, Rajasthan',          // used for the embedded map
   mapLink: 'https://maps.app.goo.gl/uLQ2JEhzBJKKmwVP9?g_st=aw', // exact pin for "View Location"
 
+  // Optional separate venue for events marked atWedding: true (set to null if everything is at one place)
+  weddingVenue: {
+    name: 'Kheteshwar Bhavan',
+    address: 'Hanuman Krishi Farm, Near Somesar Railway Fatak\nand Underground Bridge, Somesar\nRajasthan 306503',
+    mapLink: 'https://maps.app.goo.gl/BZrnx9Jn16ZMpaDY6?g_st=ac',
+  },
+
   // Background music — put a song file at this path (e.g. music/background.mp3).
   // If the file is missing, a built-in Rajasthani-style instrumental plays instead.
   music: 'music/background.mp3',
@@ -27,15 +34,15 @@ const CONFIG = {
     { hi: 'पीठी · हल्दी', name: 'Haldi', icon: 'i-haldi', accent: '#E3A112',
       desc: 'Turmeric, laughter and songs of the women of the house.',
       when: 'Tue, 26 Jan 2027 · 10:00 a.m. onwards' },
-    { hi: 'महिला संगीत', name: 'Sangeet', icon: 'i-hand', accent: '#C2185B',
-      desc: 'Ghoomar, folk songs and dancing late into the night.',
+    { hi: 'बंदोली', name: 'Bandoli', icon: 'i-hand', accent: '#C2185B',
+      desc: 'An evening of folk songs, ghoomar and the groom’s bandoli procession.',
       when: 'Tue, 26 Jan 2027 · 8:00 p.m. onwards' },
     { hi: 'बारात प्रस्थान', name: 'Baraat Prasthan', icon: 'i-horse', accent: '#7A1020',
       desc: 'The baraat sets out with dhol, safas and the groom on his ghodi.',
       when: 'Wed, 27 Jan 2027 · 4:00 p.m.' },
     { hi: 'शुभ विवाह · पाणिग्रहण', name: 'Wedding', icon: 'i-fire', accent: '#0F6B66',
       desc: 'Seven sacred rounds around the holy fire.',
-      when: 'Wed, 27 Jan 2027 · 10:00 p.m. onwards' },
+      when: 'Wed, 27 Jan 2027 · 10:00 p.m. onwards', atWedding: true },
   ],
 
   // A page can override any value above by setting window.INVITE before loading this script
@@ -80,6 +87,26 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
   box.hidden = false;
 })();
 
+/* 2b · Second venue card for the wedding */
+(function weddingVenue() {
+  const wv = CONFIG.weddingVenue;
+  if (!wv) return;
+  $('#venueEyebrow').textContent = 'कार्यक्रम स्थल';
+  $('#venueTitle').textContent = CONFIG.events.filter((e) => !e.atWedding).map((e) => e.name).join(' · ');
+  const card = document.createElement('div');
+  card.className = 'venue-card reveal';
+  card.innerHTML = `
+    <p class="eyebrow">विवाह स्थल</p>
+    <h3 class="title">Wedding</h3>
+    <p class="venue-name"></p>
+    <p class="venue-addr"></p>
+    <div class="venue-actions"><a class="btn btn-maroon" target="_blank" rel="noopener">View Location</a></div>`;
+  card.querySelector('.venue-name').textContent = wv.name;
+  card.querySelector('.venue-addr').textContent = wv.address || '';
+  card.querySelector('a').href = wv.mapLink;
+  $('#venueCards').appendChild(card);
+})();
+
 /* 3 · WhatsApp RSVP */
 (function rsvp() {
   const msg = `Ram Ram Sa! 🙏 We would be delighted to attend the wedding of ${CONFIG.couple}.\nName:\nNumber of guests:`;
@@ -90,6 +117,13 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
 })();
 
 /* 4 · Ceremonies */
+// With a separate wedding venue, each card says where it happens
+function where(e) {
+  const wv = CONFIG.weddingVenue;
+  if (!wv) return '';
+  const v = e.atWedding ? { name: wv.name, link: wv.mapLink } : { name: CONFIG.venueName, link: CONFIG.mapLink };
+  return `<a class="where" href="${v.link}" target="_blank" rel="noopener">${v.name}</a>`;
+}
 (function events() {
   $('#eventGrid').innerHTML = CONFIG.events.map((e) => `
     <li class="event reveal" style="--accent:${e.accent}">
@@ -98,6 +132,7 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
       <h4>${e.name}</h4>
       <p class="desc">${e.desc}</p>
       <p class="when">${e.when || 'Date &amp; time to be shared'}</p>
+      ${where(e)}
     </li>`).join('');
 })();
 

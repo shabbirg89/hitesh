@@ -210,11 +210,16 @@ a { color: inherit; }
 .venue { background: #FBE3C0; }
 .venue-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; align-items: center; }
 .venue-grid:has(.map:not([hidden])) { grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.venue-cards { display: grid; gap: 1.2rem; }
+.venue-card .title { font-size: clamp(1.5rem, 4vw, 2rem); }
 .venue-card { padding: 2rem 1.4rem; background: #FFFBF2; border: 1.5px solid var(--gold); border-radius: 18px; max-width: 560px; margin: 0 auto; width: 100%; }
 .venue-name { font-family: var(--display); font-size: 1.6rem; color: var(--maroon); margin: .4rem 0; line-height: 1.2; }
 .venue-addr { font-family: var(--serif); font-size: 1.15rem; color: var(--muted); margin: 0 0 1.2rem; white-space: pre-line; }
 .venue-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }
 .venue-actions[hidden], .map[hidden], .btn[hidden] { display: none; }
+.where { display: inline-block; margin-top: .6rem; font-size: .85rem; font-weight: 600; color: var(--muted); text-decoration: none; border-bottom: 1px dotted currentColor; }
+.where::before { content: '◉ '; color: var(--accent, var(--kesar)); }
+.where:hover { color: var(--maroon-2); }
 .map { border-radius: 18px; overflow: hidden; border: 1.5px solid var(--gold); min-height: 320px; box-shadow: 0 16px 36px rgba(90,11,22,.12); }
 .map iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; }
 

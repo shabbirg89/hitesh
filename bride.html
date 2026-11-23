@@ -285,15 +285,17 @@
 <!-- ═════════════ VENUE ═════════════ -->
 <section id="venue" class="section venue">
   <div class="wrap venue-grid">
+    <div class="venue-cards" id="venueCards">
     <div class="venue-card reveal">
-      <p class="eyebrow">विवाह स्थल</p>
-      <h3 class="title">The Venue</h3>
+      <p class="eyebrow" id="venueEyebrow">विवाह स्थल</p>
+      <h3 class="title" id="venueTitle">The Venue</h3>
       <p class="venue-name" data-c="venueName">Venue to be announced</p>
       <p class="venue-addr" data-c="venueAddress"></p>
       <div class="venue-actions" id="venueActions" hidden>
         <a class="btn btn-maroon" id="mapLink" target="_blank" rel="noopener">View Location</a>
         <a class="btn btn-ghost-dark" id="dirLink" target="_blank" rel="noopener">Directions</a>
       </div>
+    </div>
     </div>
     <div class="map reveal" id="mapBox" hidden></div>
   </div>
@@ -334,6 +336,7 @@
   // Bride-side overrides — everything else comes from script.js
   window.INVITE = {
     couple: 'Jinal & Hitesh',
+    weddingVenue: null, // everything is at Kheteshwar Bhavan
 
     venueName: 'Kheteshwar Bhavan',
     venueAddress: 'Hanuman Krishi Farm, Near Somesar Railway Fatak\nand Underground Bridge, Somesar\nRajasthan 306503',
