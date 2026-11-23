@@ -63,14 +63,17 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
   $$('[data-c]').forEach((el) => { el.textContent = values[el.dataset.c] ?? ''; });
 })();
 
-/* 2 · Map */
+/* 2 · Map
+   mapLink = exact pin for "View Location". mapQuery (place name or "lat,lng") drives the
+   embedded map and Directions; leave it '' to show only the pin button. */
 (function map() {
   const q = CONFIG.mapQuery;
-  if (!q) return;
-  const enc = encodeURIComponent(q);
+  if (!q && !CONFIG.mapLink) return;
+  const enc = encodeURIComponent(q || '');
   $('#mapLink').href = CONFIG.mapLink || `https://www.google.com/maps/search/?api=1&query=${enc}`;
-  $('#dirLink').href = `https://www.google.com/maps/dir/?api=1&destination=${enc}`;
   $('#venueActions').hidden = false;
+  if (!q) { $('#dirLink').hidden = true; return; }
+  $('#dirLink').href = `https://www.google.com/maps/dir/?api=1&destination=${enc}`;
   const box = $('#mapBox');
   box.innerHTML = `<iframe title="Map of the wedding venue" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
     src="https://maps.google.com/maps?q=${enc}&z=15&hl=en&output=embed"></iframe>`;

@@ -214,7 +214,7 @@ a { color: inherit; }
 .venue-name { font-family: var(--display); font-size: 1.6rem; color: var(--maroon); margin: .4rem 0; line-height: 1.2; }
 .venue-addr { font-family: var(--serif); font-size: 1.15rem; color: var(--muted); margin: 0 0 1.2rem; white-space: pre-line; }
 .venue-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }
-.venue-actions[hidden], .map[hidden] { display: none; }
+.venue-actions[hidden], .map[hidden], .btn[hidden] { display: none; }
 .map { border-radius: 18px; overflow: hidden; border: 1.5px solid var(--gold); min-height: 320px; box-shadow: 0 16px 36px rgba(90,11,22,.12); }
 .map iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; }
 
