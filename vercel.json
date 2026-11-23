@@ -1,9 +1,9 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "/",
       "has": [{ "type": "host", "value": "jinal-hitesh-wedding.vercel.app" }],
-      "destination": "/bride.html"
+      "dest": "/bride.html"
     }
   ]
 }
