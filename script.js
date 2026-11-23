@@ -4,6 +4,9 @@
    or shows "to be announced".
    ════════════════════════════════════════════════════════════ */
 const CONFIG = {
+  // Names as shown in the RSVP WhatsApp message
+  couple: 'Hitesh & Jinal',
+
   // Wedding date & time, IST
   weddingDate: '2027-01-27T22:00:00+05:30',
   muhurat: 'Wedding 10:00 p.m. onwards',
@@ -34,6 +37,9 @@ const CONFIG = {
       desc: 'Seven sacred rounds around the holy fire.',
       when: 'Wed, 27 Jan 2027 · 10:00 p.m. onwards' },
   ],
+
+  // A page can override any value above by setting window.INVITE before loading this script
+  ...(window.INVITE || {}),
 };
 
 /* ──────────────────────────────────────────────────────────── */
@@ -73,7 +79,7 @@ const fmt = (opts) => date ? date.toLocaleDateString('en-IN', { ...opts, timeZon
 
 /* 3 · WhatsApp RSVP */
 (function rsvp() {
-  const msg = 'Ram Ram Sa! 🙏 We would be delighted to attend the wedding of Hitesh & Jinal.\nName:\nNumber of guests:';
+  const msg = `Ram Ram Sa! 🙏 We would be delighted to attend the wedding of ${CONFIG.couple}.\nName:\nNumber of guests:`;
   const url = CONFIG.whatsappNumber
     ? `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`
     : `https://wa.me/?text=${encodeURIComponent(msg)}`;
